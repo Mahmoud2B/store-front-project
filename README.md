@@ -19,3 +19,4 @@ TOKEN_SECRET=alohamora221
 - Run `db-migrate up` to migrate the tables
 - if you are using Windows OS replace `export ENV=test &&` at the start of `test` script on 'package.json' file with `set ENV=test&&`
 - Run `npm run test` to run the created tests
+- Run `npm run start` to start the server
