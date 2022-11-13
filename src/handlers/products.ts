@@ -14,16 +14,16 @@ const index = async (_req: Request, res: Response): Promise<void> => {
 };
 
 const create = async (req: Request, res: Response): Promise<void> => {
-    let name: string = req.body.name as string;
-    let price: number = req.body.price as number;
-    let categoryId: number = req.body.category_id as number;
+    const name: string = req.body.name as string;
+    const price: number = req.body.price as number;
+    const categoryId: number = req.body.category_id as number;
 
     if (name == null || price == null || categoryId == null) {
         res.status(400).send('Product data is missing one or more field(s)');
         return;
     }
     try {
-        let product: Product = {
+        const product: Product = {
             name: name,
             price: price,
             category_id: categoryId

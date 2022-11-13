@@ -4,7 +4,7 @@ import { Category, CategoryStore } from "../models/category";
 
 const store = new CategoryStore();
 
-const index = async (_req: Request, res: Response) => {
+export const index = async (_req: Request, res: Response) => {
   try {
     const categories = await store.index();
     res.json(categories);
@@ -14,14 +14,14 @@ const index = async (_req: Request, res: Response) => {
 };
 
 const create = async (req: Request, res: Response) => {
-  let name: string = req.body.name as string;
+  const name: string = req.body.name as string;
 
   if (name == null) {
     res.status(400).send("Category data is missing one or more field(s)");
     return;
   }
   try {
-    let category: Category = {
+    const category: Category = {
       name: name
     };
     const categories = await store.create(category);

@@ -7,7 +7,7 @@ import users_routes from './handlers/users';
 import orders_routes from './handlers/orders';
 const app = express();
 
-const port = 3000;
+const port = process.env.SERVER_PORT;
 
 //This is to parse numbers that comes from pg
 types.setTypeParser(1700, function (val: string) {
