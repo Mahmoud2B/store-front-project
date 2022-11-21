@@ -5,3 +5,5 @@ CREATE TABLE users (
     last_name varchar(100),
     password varchar
 );
+
+INSERT INTO users(username,first_name,last_name,password) VALUES ('testUser','test','user','123321');
