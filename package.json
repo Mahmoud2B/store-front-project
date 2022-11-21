@@ -7,7 +7,7 @@
         "start": "nodemon src/server.ts",
         "build": "npx tsc",
         "jasmine": "jasmine",
-        "test": "export ENV=test && db-migrate db:drop store_front_test && db-migrate db:create store_front_test && db-migrate --env test up && npm run build && npm run jasmine"
+        "test": "set ENV=test && db-migrate db:drop store_front_test && db-migrate db:create store_front_test && db-migrate --env test up && npm run build && npm run jasmine"
     },
     "author": "Mahmoud Mabrouk (tobee.dev@gmail.com)",
     "license": "ISC",

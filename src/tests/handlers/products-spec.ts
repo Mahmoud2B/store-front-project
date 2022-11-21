@@ -6,18 +6,22 @@ import jwt from 'jsonwebtoken';
 describe('Products endpoint', () => {
     const token = jwt.sign({}, process.env.TOKEN_SECRET ?? '');
 
-    it('GET /products should return json with status 200', async () => {
+    it('GET /products should return json with status 200', (done) => {
         request(app)
             .get('/products')
             .send()
             .expect('Content-Type', /json/)
             .expect(200)
             .end((err, res) => {
-                if (err) throw err;
+                if (err) {
+                    done.fail(err);
+                } else {
+                    done();
+                }
             });
     });
 
-    it('POST /products/create should return json with status 200', async () => {
+    it('POST /products/create should return json with status 200', (done) => {
         request(app)
             .post('/products/create')
             .send({
@@ -29,7 +33,11 @@ describe('Products endpoint', () => {
             .expect('Content-Type', /json/)
             .expect(200)
             .end((err, res) => {
-                if (err) throw err;
+                if (err) {
+                    done.fail(err);
+                } else {
+                    done();
+                }
             });
     });
 });
