@@ -3,10 +3,8 @@ import jwt from 'jsonwebtoken';
 const checkJWT = async (
     req: express.Request,
     res: express.Response,
-    next: Function
+    next: () => void
 ) => {
-    console.log("Inside middleware");
-    
     try {
         jwt.verify(req.body.token, process.env.TOKEN_SECRET ?? '');
         next();

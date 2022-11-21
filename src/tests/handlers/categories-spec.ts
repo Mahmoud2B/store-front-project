@@ -1,26 +1,51 @@
-import assert from 'assert';
-import httpMocks from 'node-mocks-http';
-import { create } from '../../handlers/users';
+import request from 'supertest';
+import app from '../../server';
 
-describe('Create User Router', () => {
-    it('should return Created user for POST /users/create', () => {
-        const mockRequest = httpMocks.createRequest({
-            method: 'POST',
-            url: '/users/create',
-            body: {
-                first_name: 'Mabrouk',
-                last_name: 'Mohamed',
-                username: 'tobee',
-                password: '123321Mm'
-            }
-        });
-        const mockResponse = httpMocks.createResponse();
+import jwt from 'jsonwebtoken';
 
-        create(mockRequest, mockResponse);
+describe('Categories endpoint', () => {
+    const token = jwt.sign({}, process.env.TOKEN_SECRET ?? '');
 
-        const actualResponseBody = mockResponse._getJSONData();
+    it('GET /categories should return json with status 200', async () => {
+        request(app)
+            .get('/categories')
+            .send({ token: token })
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end((err, res) => {
+                if (err) throw err;
+            });
+    });
 
-        const expectedResponseBody = "JJ"
-        assert(actualResponseBody, expectedResponseBody);
+    it('GET /categories should fail with code 401 if no token provided', async () => {
+        request(app)
+            .get('/categories')
+            .expect('Content-Type', 'text/html; charset=utf-8')
+            .expect(401)
+            .end((err, res) => {
+                if (err) throw err;
+            });
+    });
+
+    it('POST /categories/create should return json with status 200', async () => {
+        request(app)
+            .post('/categories/create')
+            .send({ token: token, name: 'test_category' })
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end((err, res) => {
+                if (err) throw err;
+            });
+    });
+
+    it('GET /categories/:id should return json with status 200', async () => {
+        request(app)
+            .get('/categories/1')
+            .send({ token: token })
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end((err, res) => {
+                if (err) throw err;
+            });
     });
 });
